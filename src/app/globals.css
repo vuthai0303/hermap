@@ -30,3 +30,32 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.border_trail {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 0 round 3px);
+  z-index: -1;
+  border: 0;
+  container-type: inline-size;
+}
+
+.trail {
+  width: 64px;
+  aspect-ratio: 2 / 1;
+  position: absolute;
+  offset-path: border-box;
+  offset-anchor: 100% 50%;
+}
+
+@layer utilities {
+  .animate-journey {
+    animation: journey 3s linear infinite;
+  }
+}
+
+@keyframes journey {
+  to {
+    offset-distance: 100%;
+  }
+}

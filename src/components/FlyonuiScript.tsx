@@ -11,12 +11,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import noUiSlider from 'nouislider';
 
-window.$ = $;
-window._ = _;
-window.jQuery = $;
-// window.DataTable = $.fn.dataTable;
-window.noUiSlider = noUiSlider;
-
 async function loadFlyonUI() {
     return import('flyonui/flyonui');
 }
@@ -28,6 +22,14 @@ export default function FlyonuiScript() {
         const initFlyonUI = async () => {
             await loadFlyonUI();
         };
+
+        if (typeof window !== 'undefined') {
+            window.$ = $;
+            window._ = _;
+            window.jQuery = $;
+            // window.DataTable = $.fn.dataTable;
+            window.noUiSlider = noUiSlider;
+        }
 
         initFlyonUI();
     }, []);

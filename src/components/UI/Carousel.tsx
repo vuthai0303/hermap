@@ -2,10 +2,6 @@ import { MapData } from "@/src/types/MapTypes";
 
 export function Carousel({ datas = [], numImgInRow = 1, clickImageAction }: { datas: MapData[]; numImgInRow: number; clickImageAction?: (id: string) => void }) {
 
-    // const onClickImageAction = (id: string) => {
-    //     clickImageAction(id);
-    // }
-
     return (
         <div
             id="multi-slide"
@@ -13,11 +9,19 @@ export function Carousel({ datas = [], numImgInRow = 1, clickImageAction }: { da
             className="relative w-full h-full"
         >
             <div className="carousel rounded-none h-full">
-                <div className="carousel-body h-full opacity-0 gap-5">
+                <div className="carousel-body h-full opacity-0 gap-4">
                     {datas.map(e => (
-                        <div key={e.id} className="carousel-slide h-full hover:scale-105">
-                            <div className="card h-full">
-                                <div className={`w-full h-full bg-[url(${e.main_url})] bg-cover bg-center bg-no-repeat`}></div>
+                        <div key={e.id} className="carousel-slide h-full relative">
+                            <div className="border_trail rounded-lg">
+                                <div className="trail bg-radial-[100%_100%_at_right] from-[#0000ff] to-transparent to-50% animate-journey"></div>
+                            </div>
+                            <div
+                                className={`card h-full hover:scale-98 ${clickImageAction ? "cursor-pointer" : ""}`}
+                                onClick={() => clickImageAction?.(e.id)}
+                            >
+                                <div className={`w-full h-full`}>
+                                    <img className="w-full h-full" src={e.main_url} alt="" />
+                                </div>
                                 <div className="rounded-full card-body space-y-3 items-center">
                                     <h5 className="card-title text-center">{e.label}</h5>
                                 </div>

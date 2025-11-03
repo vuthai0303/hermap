@@ -4,7 +4,7 @@ import { MapData } from "@/src/types/MapTypes";
 import { useState } from "react";
 
 export default function MapPage() {
-  const [selectedDataId, setSelectedDataId] = useState<string | null>("1");
+  const [selectedDataId, setSelectedDataId] = useState<string | null>(null);
 
   const clickImageAction = (id: string) => {
     setSelectedDataId(id);
@@ -18,7 +18,9 @@ export default function MapPage() {
           <div className="w-1/3 h-full ">
             {/* main image */}
             <div className="card h-full">
-              <div className={`w-full h-full rounded-2xl bg-[url(${DATAS.find(e => e.id == selectedDataId)?.main_url})] bg-cover bg-center bg-no-repeat`}></div>
+              <div className={`w-full h-full rounded-2xl`}>
+                <img className="w-full h-full" src={DATAS.find(e => e.id == selectedDataId)?.main_url} alt="" />
+              </div>
               <div className="rounded-full card-body space-y-3 items-center">
                 <h5 className="card-title">{DATAS.find(e => e.id == selectedDataId)?.label}</h5>
               </div>
@@ -27,7 +29,9 @@ export default function MapPage() {
           <div className="w-2/3 h-full  flex flex-col gap-5">
             <div className="w-full h-1/2">
               {/* second image */}
-              <div className={`w-full h-full rounded-2xl bg-[url(${DATAS.find(e => e.id == selectedDataId)?.second_url})] bg-cover bg-center bg-no-repeat`}></div>
+              <div className={`w-full h-full rounded-2xl`}>
+                <img className="w-full h-full" src={DATAS.find(e => e.id == selectedDataId)?.second_url} alt="" />
+              </div>
             </div>
             <div className="w-full h-1/2 flex flex-row gap-5">
               {/* content */}
@@ -35,7 +39,7 @@ export default function MapPage() {
                 <span className="text-center">{DATAS.find(e => e.id == selectedDataId)?.content}</span>
               </div>
               <div className="w-1/2 h-full">
-                <Carousel datas={DATAS.filter(e => e.id != selectedDataId)} numImgInRow={3} />
+                <Carousel datas={DATAS.filter(e => e.id !== selectedDataId)} numImgInRow={3} clickImageAction={clickImageAction} />
               </div>
             </div>
           </div>

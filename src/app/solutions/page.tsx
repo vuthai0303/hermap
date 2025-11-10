@@ -11,7 +11,7 @@ export default function SolutionsPage() {
   ]
 
   return (
-    <div className="w-full h-[calc(100%-85px)] flex justify-center items-center mt-5 px-10">
+    <div className="w-full h-[calc(100%-85px)] flex justify-center items-center mt-5 px-10 overflow-hidden">
       <div className="w-[1040px] h-[616px] relative flex flex-col overflow-hidden">
         <div className="flex flex-row gap-5 relative">
           {datas.map((e, i) => <img key={i} className="mask mask-diamond size-48" src={e} alt="mask image" />)}

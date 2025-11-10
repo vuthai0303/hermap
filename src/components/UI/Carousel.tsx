@@ -1,6 +1,11 @@
 import { MapData } from "@/src/types/MapTypes";
+import { useEffect } from "react";
 
 export function Carousel({ datas = [], numImgInRow = 1, clickImageAction }: { datas: MapData[]; numImgInRow: number; clickImageAction?: (id: string) => void }) {
+
+    useEffect(() => {
+        window.HSStaticMethods?.autoInit();
+    }, [datas])
 
     return (
         <div
@@ -11,7 +16,7 @@ export function Carousel({ datas = [], numImgInRow = 1, clickImageAction }: { da
             <div className="carousel rounded-none h-full">
                 <div className="carousel-body h-full opacity-0 gap-4">
                     {datas.map(e => (
-                        <div key={e.id} className="carousel-slide h-full relative">
+                        <div key={e.id + "_" + datas.map(d => d.id).join('-')} className="carousel-slide h-full relative">
                             <div className="border_trail rounded-lg">
                                 <div className="trail bg-radial-[100%_100%_at_right] from-[#0000ff] to-transparent to-50% animate-journey"></div>
                             </div>
@@ -31,11 +36,11 @@ export function Carousel({ datas = [], numImgInRow = 1, clickImageAction }: { da
                 </div>
             </div>
 
-            <button type="button" className="carousel-prev start-5 max-sm:start-3 carousel-disabled:opacity-50 size-9.5 bg-base-100 flex items-center justify-center rounded-full shadow-base-300/20 shadow-sm">
+            <button type="button" className="carousel-prev start-5 max-sm:start-3 carousel-disabled:opacity-50 size-9.5 bg-base-100 flex items-center justify-center rounded-full shadow-base-300/20 shadow-sm hover:border-2 hover:border-primary">
                 <span className="icon-[tabler--chevron-left] size-5 cursor-pointer"></span>
                 <span className="sr-only">Previous</span>
             </button>
-            <button type="button" className="carousel-next end-5 max-sm:end-3 carousel-disabled:opacity-50 size-9.5 bg-base-100 flex items-center justify-center rounded-full shadow-base-300/20 shadow-sm">
+            <button type="button" className="carousel-next end-5 max-sm:end-3 carousel-disabled:opacity-50 size-9.5 bg-base-100 flex items-center justify-center rounded-full shadow-base-300/20 shadow-sm hover:border-2 hover:border-primary">
                 <span className="icon-[tabler--chevron-right] size-5"></span>
                 <span className="sr-only">Next</span>
             </button>

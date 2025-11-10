@@ -10,11 +10,15 @@ export default function MapPage() {
     setSelectedDataId(id);
   }
 
+  const clickBackButtonAction = () => {
+    setSelectedDataId(null);
+  }
+
   return (
     <div className="w-full h-[calc(100%-85px)] flex justify-center items-center mt-5 px-10">
       {selectedDataId ? 
       (
-        <div className="w-full h-full flex flex-row gap-10">
+        <div className="w-full h-full flex flex-row gap-10 relative">
           <div className="w-1/3 h-full ">
             {/* main image */}
             <div className="card h-full">
@@ -35,18 +39,24 @@ export default function MapPage() {
             </div>
             <div className="w-full h-1/2 flex flex-row gap-5">
               {/* content */}
-              <div className="w-1/2 h-full rounded-2xl bg-[#f1e0d6] text-black flex items-center px-5">
-                <span className="text-center">{DATAS.find(e => e.id == selectedDataId)?.content}</span>
+              <div className="w-1/2 h-full rounded-2xl bg-[#f1e0d6] text-black flex items-center overflow-hidden">
+                <span className="w-full h-full flex justify-center items-center text-center overflow-auto px-5">{DATAS.find(e => e.id == selectedDataId)?.content}</span>
               </div>
               <div className="w-1/2 h-full">
-                <Carousel datas={DATAS.filter(e => e.id !== selectedDataId)} numImgInRow={3} clickImageAction={clickImageAction} />
+                <Carousel key={DATAS.map(d => d.id).join('-')} datas={DATAS.filter(e => e.id !== selectedDataId)} numImgInRow={3} clickImageAction={clickImageAction} />
               </div>
             </div>
           </div>
+          <button 
+            type="button" 
+            className="absolute right-2 top-2 size-9.5 bg-transparent border border-white/60 hover:bg-base-100 cursor-pointer flex items-center justify-center rounded-lg shadow-base-300/20 shadow-sm"
+            onClick={clickBackButtonAction}
+          >
+            <span className="icon-[tabler--chevron-left] size-5 cursor-pointer"></span>
+            <span className="sr-only">Back</span>
+          </button>
         </div>
-        ) : (<div className="w-full h-full py-10"><Carousel datas={DATAS} numImgInRow={4} clickImageAction={clickImageAction}/></div>)}
-      
-      
+        ) : (<div className="w-full h-full py-10"><Carousel key={DATAS.map(d => d.id).join('-')} datas={DATAS} numImgInRow={4} clickImageAction={clickImageAction}/></div>)}
     </div>
   );
 }
